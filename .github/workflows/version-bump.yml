@@ -77,12 +77,18 @@ jobs:
           git push origin main
           echo "Pushed main branch to origin"
 
-          # Rebase develop onto main
+          # Ensure develop is up-to-date
           git checkout develop
           echo "Checked out to develop branch"
-          git pull origin main --rebase
-          echo "Rebased develop branch with origin/main"
-          git push origin develop
+          git pull origin develop --rebase
+          echo "Rebased develop branch with origin/develop"
+
+          # Rebase UNIQUE_BRANCH onto develop
+          git rebase $UNIQUE_BRANCH
+          echo "Rebased $UNIQUE_BRANCH onto develop"
+
+          # Push changes to develop
+          git push origin develop --force
           echo "Pushed develop branch to origin"
 
           # Output the new version for the release job
