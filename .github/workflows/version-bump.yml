@@ -94,6 +94,7 @@ jobs:
           # Use the new version from the version bump job
           TAG=${{ env.NEW_VERSION }}
           echo "TAG=$TAG" >> $GITHUB_ENV
+          git pull
           git tag $TAG
           git push origin $TAG
         env:
