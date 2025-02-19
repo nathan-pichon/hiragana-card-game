@@ -5,10 +5,10 @@ import App from "./App";
 const rootElement = document.getElementById("root")!;
 const root = ReactDOM.createRoot(rootElement);
 
-document.title = 'Hiragana Flashcards';
+document.title = "Hiragana Flashcards";
 
 root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

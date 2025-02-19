@@ -1,0 +1,34 @@
+name: "Auto PR from develop to main"
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensures full commit history
+
+      - name: Check for Existing Pull Request
+        id: check_pr
+        run: |
+          PR_URL=$(gh pr list --base main --head develop --json url --jq '.[0].url')
+          if [ -z "$PR_URL" ]; then
+            echo "PR does not exist."
+            echo "create_pr=true" >> $GITHUB_ENV
+          else
+            echo "PR already exists: $PR_URL"
+            echo "create_pr=false" >> $GITHUB_ENV
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        if: env.create_pr == 'true'
+        run: |
+          gh pr create --base main --head develop --title '🔀 Merge develop → main' --body 'Auto PR from develop to main.'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

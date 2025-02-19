@@ -1,0 +1,37 @@
+name: "Bump package.json version based on PR labels"
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: "Determine version bump"
+        id: semver
+        run: |
+          LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          VERSION_TYPE="patch" # Default to patch (bugfix)
+
+          if echo "$LABELS" | grep -q "breaking change"; then
+            VERSION_TYPE="major"
+          elif echo "$LABELS" | grep -q "enhancement"; then
+            VERSION_TYPE="minor"
+          fi
+
+          echo "VERSION_TYPE=$VERSION_TYPE" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Bump version"
+        run: |
+          npm version $VERSION_TYPE -m "🔖 Bump version to %s"
+          git push origin main
