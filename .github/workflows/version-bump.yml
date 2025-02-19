@@ -92,7 +92,7 @@ jobs:
           echo "Pushed develop branch to origin"
 
           # Output the new version for the release job
-          echo "::set-output name=new_version::v$NEW_VERSION"
+          echo "new_version=v$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Output new version: v$NEW_VERSION"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
@@ -126,7 +126,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.version.outputs.new_version }}
-          name: "Release ${{ needs.version.outputs.new_version }}"  # Title the release with the semver
+          name: ${{ needs.version.outputs.new_version }}  # Title the release with the semver
           generate_release_notes: true  # Enable automatic release notes generation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
