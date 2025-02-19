@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Bump version and merge into main and develop"
+      - name: "Bump version and update branches"
         run: |
           # Create a unique branch name for the version bump
           UNIQUE_BRANCH="version-bump-$(date +%s)"
@@ -66,12 +66,10 @@ jobs:
           git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
           git push origin main
 
-          # Ensure develop is up-to-date with main
+          # Rebase develop onto main
           git checkout develop
           git pull origin main --rebase
-
-          # Merge the version bump into develop
-          git push origin develop
+          git push origin develop --force
 
           # Output the new version for the release job
           echo "NEW_VERSION=v$NEW_VERSION" >> $GITHUB_ENV
