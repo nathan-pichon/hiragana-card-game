@@ -1,6 +1,6 @@
 {
   "name": "hiragana-card-game",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A simple card game to learn hiragana",
   "keywords": [
     "typescript",
