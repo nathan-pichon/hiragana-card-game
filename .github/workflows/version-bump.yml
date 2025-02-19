@@ -11,9 +11,18 @@ jobs:
     if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
+          token: ${{ secrets.GH_PAT }}  # Use a personal access token with appropriate permissions
+
       - uses: actions/setup-node@v4
         with:
           node-version: "18"
+
+      - name: "Set up Git"
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: "Determine version bump"
         id: semver
@@ -34,4 +43,6 @@ jobs:
       - name: "Bump version"
         run: |
           npm version $VERSION_TYPE -m "🔖 Bump version to %s"
-          git push
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
