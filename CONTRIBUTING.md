@@ -35,7 +35,7 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## Reporting Issues
 
-If you find a bug or have a feature request, please open an issue on the [GitHub Issues](https://github.com/<repository-url>/issues) page. Provide as much detail as possible to help us understand and address the issue.
+If you find a bug or have a feature request, please open an issue on the [GitHub Issues](https://github.com/nathan-pichon/hiragana-card-game/issues) page. Provide as much detail as possible to help us understand and address the issue.
 
 ## Style Guide
 
