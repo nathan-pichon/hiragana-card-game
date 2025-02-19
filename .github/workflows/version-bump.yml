@@ -64,15 +64,12 @@ jobs:
           # Ensure main is up-to-date
           git checkout main
           git pull origin main --rebase
-
-          # Merge the version bump into main
-          git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
           git push origin main
 
           # Rebase develop onto main
           git checkout develop
           git pull origin main --rebase
-          git push origin develop --force
+          git push origin develop
 
           # Output the new version for the release job
           echo "new_version=v$NEW_VERSION" >> $GITHUB_ENV
