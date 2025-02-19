@@ -57,8 +57,13 @@ jobs:
           # Commit the version bump with a clean message
           git commit --amend -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
 
-          # Push to main
-          git push origin $UNIQUE_BRANCH:main
+          # Ensure main is up-to-date
+          git checkout main
+          git pull origin main --rebase
+
+          # Merge the version bump into main
+          git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
+          git push origin main
 
           # Checkout develop and merge the version bump
           git checkout develop
