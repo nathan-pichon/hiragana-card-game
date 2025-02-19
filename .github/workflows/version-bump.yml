@@ -13,6 +13,8 @@ jobs:
   version:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    outputs:
+      new_version: ${{ steps.set_version.outputs.new_version }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -93,8 +95,8 @@ jobs:
         id: create_tag
         run: |
           # Use the new version from the version bump job
-          TAG=${{ env.NEW_VERSION }}
-          echo "TAG=$TAG" >> $GITHUB_ENV
+          TAG=${{ needs.version.outputs.new_version }}
+          echo "Creating tag $TAG"
           git pull
           git tag $TAG
           git push origin $TAG
@@ -104,8 +106,8 @@ jobs:
       - name: "Create GitHub Release"
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.NEW_VERSION }}
-          name: "Release ${{ env.NEW_VERSION }}"  # Title the release with the semver
+          tag_name: ${{ needs.version.outputs.new_version }}
+          name: "Release ${{ needs.version.outputs.new_version }}"  # Title the release with the semver
           generate_release_notes: true  # Enable automatic release notes generation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
