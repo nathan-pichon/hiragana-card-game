@@ -200,7 +200,7 @@ const HiraganaCard: React.FC = () => {
       >
         <div className="card-content">
           <div className="streak-counter">Streak: {streak}</div>
-          <div className="hiragana">{currentChar.character}</div>
+          <div className="hiragana" translate="no">{currentChar.character}</div>
           <div className="options-container">
             {options.map((option, index) => (
               <button
@@ -214,6 +214,7 @@ const HiraganaCard: React.FC = () => {
                 }`}
                 onClick={() => handleAnswer(option)}
                 disabled={isDisabled}
+                translate="no"
               >
                 {option}
               </button>

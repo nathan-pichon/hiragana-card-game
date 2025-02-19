@@ -49,6 +49,7 @@
   margin-top: 40px;
   font-family: "Noto Sans JP", sans-serif;
   user-select: none;
+  translate: none; /* Prevent auto-translation */
 }
 
 .options-container {
