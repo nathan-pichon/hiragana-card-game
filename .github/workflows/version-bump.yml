@@ -47,6 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Bump version and update branches"
+        id: set_version
         run: |
           # Create a unique branch name for the version bump
           UNIQUE_BRANCH="version-bump-$(date +%s)"
@@ -74,7 +75,8 @@ jobs:
           git push origin develop --force
 
           # Output the new version for the release job
-          echo "NEW_VERSION=v$NEW_VERSION" >> $GITHUB_ENV
+          echo "new_version=v$NEW_VERSION" >> $GITHUB_ENV
+          echo "New version is $NEW_VERSION"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
 
