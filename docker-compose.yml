@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  react-app:
+    build: .
+    ports:
+      - "8182:80"
+    restart: always
