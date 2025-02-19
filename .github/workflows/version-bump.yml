@@ -51,29 +51,43 @@ jobs:
         run: |
           # Create a unique branch name for the version bump
           UNIQUE_BRANCH="version-bump-$(date +%s)"
+          echo "Created unique branch: $UNIQUE_BRANCH"
 
           # Create the unique branch
           git checkout -b $UNIQUE_BRANCH
+          echo "Checked out to branch: $UNIQUE_BRANCH"
 
           # Bump version
           npm version $VERSION_TYPE -m "chore(version): version bumped to %s [skip ci]"
+          echo "Bumped version to $VERSION_TYPE"
 
           # Get the new version
           NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "New version is $NEW_VERSION"
 
           # Ensure main is up-to-date
           git checkout main
+          echo "Checked out to main branch"
           git pull origin main --rebase
+          echo "Rebased main branch with origin/main"
+
+          # Fast-forward merge UNIQUE_BRANCH into main
+          git merge --ff-only $UNIQUE_BRANCH
+          echo "Fast-forward merged $UNIQUE_BRANCH into main"
           git push origin main
+          echo "Pushed main branch to origin"
 
           # Rebase develop onto main
           git checkout develop
+          echo "Checked out to develop branch"
           git pull origin main --rebase
+          echo "Rebased develop branch with origin/main"
           git push origin develop
+          echo "Pushed develop branch to origin"
 
           # Output the new version for the release job
           echo "new_version=v$NEW_VERSION" >> $GITHUB_ENV
-          echo "New version is $NEW_VERSION"
+          echo "Output new version: v$NEW_VERSION"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
 
