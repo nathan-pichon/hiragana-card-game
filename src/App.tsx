@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import GameModeSelector from './GameModeSelector';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import GameModeSelector from "./GameModeSelector";
 import HiraganaCard from "./HiraganaCard";
-import Game from './Game';
+import Game from "./Game";
 
 export default function App() {
   return (

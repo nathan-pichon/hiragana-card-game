@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import QuizCore from './QuizCore';
+import React, { useState, useEffect } from "react";
+import QuizCore from "./QuizCore";
 
 interface GameProps {
   timeLimit?: number;
@@ -11,17 +11,13 @@ export default function Game({ mode = "hiragana" }: GameProps) {
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) {
-      setScore(prev => prev + 1);
+      setScore((prev) => prev + 1);
     }
   };
 
   return (
     <div className="container">
-        <QuizCore 
-          mode={mode}
-          onAnswer={handleAnswer}
-          currentScore={score}
-        />
+      <QuizCore mode={mode} onAnswer={handleAnswer} currentScore={score} />
     </div>
   );
-} 
+}

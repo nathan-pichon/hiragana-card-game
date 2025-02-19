@@ -6,16 +6,12 @@ const HiraganaCard: React.FC = () => {
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) {
-      setScore(prev => prev + 1);
+      setScore((prev) => prev + 1);
     }
   };
 
   return (
-    <QuizCore 
-      mode="hiragana"
-      onAnswer={handleAnswer}
-      currentScore={score}
-    />
+    <QuizCore mode="hiragana" onAnswer={handleAnswer} currentScore={score} />
   );
 };
 
