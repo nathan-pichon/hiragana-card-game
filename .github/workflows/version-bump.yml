@@ -92,7 +92,7 @@ jobs:
           echo "Pushed develop branch to origin"
 
           # Output the new version for the release job
-          echo "new_version=v$NEW_VERSION" >> $GITHUB_ENV
+          echo "::set-output name=new_version::v$NEW_VERSION"
           echo "Output new version: v$NEW_VERSION"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
