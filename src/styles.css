@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 .App {
   font-family: "Noto Sans JP", sans-serif;
   text-align: center;
@@ -9,5 +11,14 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Noto Sans JP", sans-serif;
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+}
+
+.card-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
 }
