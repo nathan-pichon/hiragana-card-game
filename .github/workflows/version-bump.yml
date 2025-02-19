@@ -40,8 +40,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Bump version"
+      - name: "Bump version and push to main and develop"
         run: |
+          # Create a unique branch name for the version bump
+          UNIQUE_BRANCH="version-bump-$(date +%s)"
+
+          # Create the unique branch
+          git checkout -b $UNIQUE_BRANCH
+
           # Bump version
           npm version $VERSION_TYPE
 
@@ -52,11 +58,11 @@ jobs:
           git commit --amend -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
 
           # Push to main
-          git push origin main
+          git push origin $UNIQUE_BRANCH:main
 
-          # Checkout develop and push the version bump
+          # Checkout develop and merge the version bump
           git checkout develop
-          git merge main --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
+          git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
           git push origin develop
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
