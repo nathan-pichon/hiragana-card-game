@@ -1,4 +1,4 @@
-name: "Bump package.json version based on PR labels"
+name: "Bump Version and Create Release"
 on:
   pull_request:
     types: [closed]
@@ -64,5 +64,41 @@ jobs:
           git checkout develop
           git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
           git push origin develop
+
+          # Output the new version for the release job
+          echo "NEW_VERSION=v$NEW_VERSION" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
+
+  release:
+    runs-on: ubuntu-latest
+    needs: version  # Ensure this job runs after the version bump job
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
+
+      - name: "Set up Git"
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: "Create New Tag"
+        id: create_tag
+        run: |
+          # Use the new version from the version bump job
+          TAG=${{ env.NEW_VERSION }}
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          git tag $TAG
+          git push origin $TAG
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
+
+      - name: "Create GitHub Release"
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.NEW_VERSION }}
+          name: "Release ${{ env.NEW_VERSION }}"  # Title the release with the semver
+          generate_release_notes: true  # Enable automatic release notes generation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
