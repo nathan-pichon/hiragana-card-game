@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   version:
     runs-on: ubuntu-latest
@@ -62,9 +66,11 @@ jobs:
           git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
           git push origin main
 
-          # Checkout develop and merge the version bump
+          # Ensure develop is up-to-date with main
           git checkout develop
-          git merge $UNIQUE_BRANCH --no-ff -m "chore(version): version bumped to v${NEW_VERSION} [skip ci]"
+          git pull origin main --rebase
+
+          # Merge the version bump into develop
           git push origin develop
 
           # Output the new version for the release job
