@@ -3,6 +3,7 @@
 ## Overview
 
 The Hiragana Card Game is a web-based application designed to help users learn and practice Hiragana characters through interactive gameplay. The project is built using the following technologies:
+
 - JavaScript
 - npm (Node Package Manager)
 - React (a JavaScript library for building user interfaces)
@@ -20,21 +21,21 @@ The Hiragana Card Game is a web-based application designed to help users learn a
 To get started with the project, follow these steps:
 
 1. Clone the repository:
-    ```sh
-    git clone <repository-url>
-    ```
+   ```sh
+   git clone <repository-url>
+   ```
 2. Navigate to the project directory:
-    ```sh
-    cd hiragana-card-game
-    ```
+   ```sh
+   cd hiragana-card-game
+   ```
 3. Install the dependencies:
-    ```sh
-    npm install
-    ```
+   ```sh
+   npm install
+   ```
 4. Start the development server:
-    ```sh
-    npm start
-    ```
+   ```sh
+   npm start
+   ```
 
 ## Contributing
 
