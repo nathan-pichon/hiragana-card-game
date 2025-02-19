@@ -1,19 +1,20 @@
 {
-  "name": "react-typescript",
+  "name": "hiragana-card-game",
   "version": "1.0.0",
-  "description": "React and TypeScript example starter project",
+  "description": "A simple card game to learn hiragana",
   "keywords": [
     "typescript",
     "react",
-    "starter"
+    "japanese",
+    "hiragana"
   ],
   "main": "src/index.tsx",
   "dependencies": {
     "loader-utils": "3.2.1",
     "react": "18.2.0",
+    "react-confetti": "6.2.2",
     "react-dom": "18.2.0",
-    "react-scripts": "5.0.1",
-    "react-confetti": "6.2.2"
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.38",
