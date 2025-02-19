@@ -1,0 +1,21 @@
+name: "Auto PR from develop to main"
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: "develop"
+          base: "main"
+          title: "🔀 Merge develop → main"
+          body: |
+            ## Changes:
+            - Auto-generated PR from develop to main.
+          labels: "auto-pr, needs-review"
