@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { HiraganaChar, hiraganaData, shuffleArray } from "./HiraganaChar";
+import { HiraganaChar, shuffleArray, hiraganaData } from "./HiraganaChar";
 import "./HiraganaCard.css";
 
 interface QuizCoreProps {
@@ -8,10 +8,14 @@ interface QuizCoreProps {
   currentScore: number;
 }
 
+const getSelectedHiragana = () => hiraganaData.hiragana.filter(
+  (char: HiraganaChar) => JSON.parse(localStorage.getItem('selectedHiragana') || '[]').includes(char.character)
+);
+
 const getRandomChar = (currentChar: HiraganaChar | null): HiraganaChar => {
-  const availableChars = hiraganaData.hiragana.filter(
+  const availableChars = getSelectedHiragana().filter(
     (char: HiraganaChar) =>
-      !currentChar || char.character !== currentChar.character,
+      !currentChar || char.character !== currentChar.character
   );
   return availableChars[Math.floor(Math.random() * availableChars.length)];
 };
@@ -22,7 +26,7 @@ const generateOptions = (
 ): string[] => {
   const correctValue =
     mode === "hiragana" ? correctChar.romaji : correctChar.character;
-  const otherChars = hiraganaData.hiragana
+  const otherChars = getSelectedHiragana()
     .filter((char: HiraganaChar) => char.character !== correctChar.character)
     .map((char: HiraganaChar) =>
       mode === "hiragana" ? char.romaji : char.character,

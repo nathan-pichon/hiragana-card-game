@@ -10,6 +10,7 @@
 
 .hiragana-card {
   width: 100%;
+  min-width: 300px;
   max-width: 500px;
   margin: 0 auto;
   perspective: 1000px;
@@ -216,4 +217,28 @@
 
 .hover-scale:hover {
   transform: scale(1.02);
+}
+
+.hiragana-cell {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hiragana-cell.selected {
+  background: #e3f2fd;
+  box-shadow: 0 0 8px rgba(66, 165, 245, 0.3);
+}
+
+.checkmark {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #42a5f5;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.hiragana-cell:hover {
+  transform: translateY(-2px);
 }
