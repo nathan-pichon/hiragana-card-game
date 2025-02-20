@@ -1,9 +1,9 @@
 version: "3.8"
 services:
   hiragana-card-game-app:
-    image: napichon/hiragana-card-game:latest  # Utilisez le tag spécifique
+    image: napichon/hiragana-card-game:latest
     ports:
       - "8182:80"
     restart: always
     environment:
-      - NODE_ENV=production  # Exemple de variable d'environnement
+      - NODE_ENV=production
