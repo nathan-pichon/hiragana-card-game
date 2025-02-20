@@ -18,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
-          token: ${{ secrets.GH_PAT }}  # Use a personal access token with appropriate permissions
+          fetch-depth: 0 # Ensure all tags are fetched
+          token: ${{ secrets.GH_PAT }} # Use a personal access token with appropriate permissions
 
       - uses: actions/setup-node@v4
         with:
@@ -95,15 +95,15 @@ jobs:
           echo "new_version=v$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Output new version: v$NEW_VERSION"
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }} # Use a personal access token with push permissions
 
   release:
     runs-on: ubuntu-latest
-    needs: version  # Ensure this job runs after the version bump job
+    needs: version # Ensure this job runs after the version bump job
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0 # Ensure all tags are fetched
 
       - name: "Set up Git"
         run: |
@@ -120,14 +120,14 @@ jobs:
           git tag $TAG
           git push origin $TAG
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use a personal access token with push permissions
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }} # Use a personal access token with push permissions
 
       - name: "Create GitHub Release"
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.version.outputs.new_version }}
-          name: ${{ needs.version.outputs.new_version }}  # Title the release with the semver
-          generate_release_notes: true  # Enable automatic release notes generation
+          name: ${{ needs.version.outputs.new_version }} # Title the release with the semver
+          generate_release_notes: true # Enable automatic release notes generation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   docker-hub:
