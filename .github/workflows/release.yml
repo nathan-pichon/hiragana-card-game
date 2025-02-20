@@ -132,7 +132,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   docker-hub:
     runs-on: ubuntu-latest
-    needs: release
+    needs: [version, release] # Ensure this job runs after the version bump and release jobs
 
     steps:
       - name: Checkout code
