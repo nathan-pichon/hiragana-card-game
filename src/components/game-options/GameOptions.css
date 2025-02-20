@@ -1,0 +1,186 @@
+/* GameOptions.css */
+.game-options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px; /* Set a maximum width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.game-options-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 10px;
+  position: relative; /* Allow positioning of the back button */
+}
+
+.game-options-back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-options-back-button:hover {
+  transform: scale(1.1);
+}
+
+.game-options-select-all-button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.game-options-select-all-button:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.game-options-tables-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.game-options-hiragana-table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game-options-hiragana-table-title {
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.game-options-hiragana-grid {
+  display: grid;
+  grid-template-columns: 40px repeat(5, 1fr);
+  grid-auto-rows: 60px; /* Set a fixed height for each row */
+  gap: 5px;
+  width: 100%;
+}
+
+.game-options-row-selector-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-options-row-selector {
+  padding: 4px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 30px;
+  height: 30px;
+}
+
+.game-options-row-selector.selected {
+  background: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.game-options-row-selector:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.game-options-row-selector svg {
+  width: 16px;
+  height: 16px;
+}
+
+.game-options-hiragana-cell {
+  position: relative; /* Necessary for absolute positioning of the checkmark */
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-options-hiragana-cell:hover {
+  background-color: #f5f5f5;
+}
+
+.game-options-hiragana-cell.selected {
+  background-color: #e3f2fd;
+}
+
+.game-options-character {
+  font-size: 1.2rem;
+  font-family: "Noto Sans JP", sans-serif;
+  margin-bottom: 3px;
+  position: relative; /* Ensure text is above the checkmark */
+  z-index: 1; /* Ensure text appears above the checkmark */
+}
+
+.game-options-romaji {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.game-options-checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: rgba(33, 150, 243, 0.5); /* Semi-transparent blue */
+  pointer-events: none; /* Ensure the checkmark does not interfere with clicks */
+  z-index: 0; /* Ensure it appears behind the text */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .game-options-hiragana-table-title {
+    font-size: 1rem;
+  }
+
+  .game-options-character {
+    font-size: 1.4rem;
+  }
+
+  .game-options-romaji {
+    font-size: 1rem;
+  }
+
+  .game-options-hiragana-cell {
+    padding: 8px;
+  }
+}

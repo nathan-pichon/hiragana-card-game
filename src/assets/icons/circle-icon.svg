@@ -1,0 +1,13 @@
+<!-- circle-icon.svg -->
+<svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#666"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+>
+    <circle cx="12" cy="12" r="10"></circle>
+</svg>
