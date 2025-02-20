@@ -71,9 +71,9 @@ jobs:
           git pull origin main --rebase
           echo "Rebased main branch with origin/main"
 
-          # Fast-forward merge UNIQUE_BRANCH into main
-          git merge --ff-only $UNIQUE_BRANCH
-          echo "Fast-forward merged $UNIQUE_BRANCH into main"
+          # Merge UNIQUE_BRANCH into main
+          git merge --no-ff $UNIQUE_BRANCH
+          echo "Merged $UNIQUE_BRANCH into main"
           git push origin main
           echo "Pushed main branch to origin"
 
